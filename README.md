@@ -19,7 +19,7 @@ npm start
 * React / Create React App
 * Bootstrap4
 * Axios
-* [Mock API] (https://5cb5bfa207f233001424d6c5.mockapi.io/api/v1/records)
+* [Mock API](https://5cb5bfa207f233001424d6c5.mockapi.io/api/v1/records)
 * JavaScript ES6
 * Deployed on []()
 
