@@ -1,28 +1,43 @@
 import React, { Component } from 'react';
 import Record from './Record';
+import axios from 'axios';
 
 class Records extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      records: [
-        {
-          "id": 1,
-          "date": "2018-09-01",
-          "title": "income",
-          "amount": 20
-        },
-        {
-          "id": 2,
-          "date": "2018-09-03",
-          "title": "outcome",
-          "amount": 16
-        }
-      ]
+      records: [],
+      error: null,
+      isLoaded: false,
     }
   }
 
+  componentDidMount() {
+    axios.get("https://5cb5bfa207f233001424d6c5.mockapi.io/api/v1/records").then(
+      res => {
+        this.setState({
+          records: res.data,
+          isLoaded: true
+        })
+      }
+    ).catch(
+      error => {
+        this.setState({
+          error,
+          isLoaded: true
+        })
+      }
+    )
+  }
+
   render() {
+    const { records, error, isLoaded } = this.state;
+
+    if(error) {
+      return (<div className="loading-message loading-error-message">Error: {error.message}</div>)
+    }else if(!isLoaded) {
+      return (<div className="loading-message">Loading...</div>)
+    }
     return (
       <div>
         <h2>Records</h2>
@@ -35,10 +50,10 @@ class Records extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.records.map((record) => 
+            {records.map((record) => 
               <Record 
-                record={record}
                 key={record.id}
+                {...record}
                 />)}
           </tbody>
         </table>

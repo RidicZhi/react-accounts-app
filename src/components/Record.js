@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Record extends Component {
   render() {
-    const { date, title, amount } = this.props.record;
+    const { date, title, amount } = this.props;
 
     return (
       <tr>
