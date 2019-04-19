@@ -43,12 +43,12 @@ class Records extends Component {
       recordsComponent = <div className="loading-message">Loading...</div>;
     } else {
       recordsComponent = (
-        <table className="table table-bordered">
-          <thead>
+        <table className="table table-bordered text-center">
+          <thead className="thead-dark">
             <tr>
-              <th>Date</th>
-              <th>Title</th>
-              <th>Amount</th>
+              <th className="w-25">Date</th>
+              <th className="w-50">Title</th>
+              <th className="w-25">Amount</th>
             </tr>
           </thead>
           <tbody>

@@ -19,31 +19,30 @@ export default class NewRecordForm extends Component {
   }
 
   handleChange(e) {
-    let name, obj;
-    name = e.target.name;
+    const {name, value} = e.target;
 
-    this.setState((
-      obj={},
-      obj["" + name] = e.target.value,
-      obj)
-    )
+    this.setState({
+      [name]: value
+    })
   }
 
   render() {
     const { date, title, amount } = this.state;
 
     return (
-      <form className="form-inline my-4 justify-content-center">
-        <div className="form-group">
+      <form className="form-row my-4 justify-content-center">
+        <div className="col-2 mr-4">
           <input type="text" className="form-control" onChange={this.handleChange} placeholder="Date" name="date" value={date}/>
         </div>
-        <div className="form-group">
+        <div className="col-3 mr-4">
           <input type="text" className="form-control" onChange={this.handleChange} placeholder="Title" name="title" value={title}/>
         </div>
-        <div className="form-group">
+        <div className="col-2 mr-3">
           <input type="text" className="form-control" onChange={this.handleChange} placeholder="Amount" name="amount" value={amount}/>
         </div>
-        <button type="submit" className="btn btn-primary" disabled={!this.buttonValid()}>Create Record</button>
+        <div >
+          <button type="submit" className="btn btn-primary" disabled={!this.buttonValid()}>Create Record</button>
+        </div>
       </form>
     );
   }
