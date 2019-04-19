@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import Record from './Record';
-import axios from 'axios';
+import React, { Component } from "react";
+import Record from "./Record";
+import * as RecordsAPI from "../utils/RecordsAPI";
+import NewRecordForm from "./NewRecordForm";
 
 class Records extends Component {
   constructor(props) {
@@ -8,39 +9,40 @@ class Records extends Component {
     this.state = {
       records: [],
       error: null,
-      isLoaded: false,
-    }
+      isLoaded: false
+    };
   }
 
   componentDidMount() {
-    axios.get("https://5cb5bfa207f233001424d6c5.mockapi.io/api/v1/records").then(
-      res => {
+    RecordsAPI.getRecords()
+      .then(res => {
         this.setState({
           records: res.data,
           isLoaded: true
-        })
-      }
-    ).catch(
-      error => {
+        });
+      })
+      .catch(error => {
         this.setState({
           error,
           isLoaded: true
-        })
-      }
-    )
+        });
+      });
   }
 
   render() {
     const { records, error, isLoaded } = this.state;
+    let recordsComponent;
 
-    if(error) {
-      return (<div className="loading-message loading-error-message">Error: {error.message}</div>)
-    }else if(!isLoaded) {
-      return (<div className="loading-message">Loading...</div>)
-    }
-    return (
-      <div>
-        <h2>Records</h2>
+    if (error) {
+      recordsComponent = (
+        <div className="loading-message loading-error-message">
+          Error: {error.message}
+        </div>
+      );
+    } else if (!isLoaded) {
+      recordsComponent = <div className="loading-message">Loading...</div>;
+    } else {
+      recordsComponent = (
         <table className="table table-bordered">
           <thead>
             <tr>
@@ -50,13 +52,19 @@ class Records extends Component {
             </tr>
           </thead>
           <tbody>
-            {records.map((record) => 
-              <Record 
-                key={record.id}
-                {...record}
-                />)}
+            {records.map(record => (
+              <Record key={record.id} {...record} />
+            ))}
           </tbody>
         </table>
+      );
+    }
+
+    return (
+      <div>
+        <h2>Records</h2>
+        <NewRecordForm />
+        {recordsComponent}
       </div>
     );
   }

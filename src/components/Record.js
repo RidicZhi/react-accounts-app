@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-class Record extends Component {
+export default class Record extends Component {
   render() {
     const { date, title, amount } = this.props;
 
     return (
       <tr>
-        <td>{ date }</td>
-        <td>{ title }</td>
-        <td>{ amount }</td>
+        <td>{date}</td>
+        <td>{title}</td>
+        <td>{amount}</td>
       </tr>
     );
   }
 }
 
-export default Record;
+Record.propTypes = {
+  id: PropTypes.number,
+  date: PropTypes.string,
+  title: PropTypes.string,
+  amount: PropTypes.number
+};
