@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Record from "./Record";
-import * as RecordsAPI from "../utils/RecordsAPI";
+import { getRecords } from "../utils/RecordsAPI";
 import NewRecordForm from "./NewRecordForm";
 
 class Records extends Component {
@@ -11,10 +11,12 @@ class Records extends Component {
       error: null,
       isLoaded: false
     };
+
+    this.onCreateRecord = this.onCreateRecord.bind(this);
   }
 
   componentDidMount() {
-    RecordsAPI.getRecords()
+    getRecords()
       .then(res => {
         this.setState({
           records: res.data,
@@ -27,6 +29,15 @@ class Records extends Component {
           isLoaded: true
         });
       });
+  }
+
+  onCreateRecord(record) {
+    const { records } = this.state;
+    const newRecords = [...records, record];
+
+    this.setState({
+      records: newRecords
+    });
   }
 
   render() {
@@ -63,7 +74,7 @@ class Records extends Component {
     return (
       <div>
         <h2>Records</h2>
-        <NewRecordForm />
+        <NewRecordForm onCreateRecord={this.onCreateRecord} />
         {recordsComponent}
       </div>
     );
