@@ -72,7 +72,7 @@ class Records extends Component {
     }
 
     return (
-      <div>
+      <div className="mx-5 px-5">
         <h2>Records</h2>
         <NewRecordForm onCreateRecord={this.onCreateRecord} />
         {recordsComponent}

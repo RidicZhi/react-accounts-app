@@ -24,3 +24,7 @@ code {
 .loading-error-message {
   color: #dc3545;
 }
+
+button:disabled {
+  cursor: not-allowed;
+}

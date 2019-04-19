@@ -56,7 +56,7 @@ export default class NewRecordForm extends Component {
 
     return (
       <form
-        className="form-row my-4 justify-content-center"
+        className="form-row my-5 justify-content-center"
         onSubmit={this.handleSubmit}
       >
         <div className="col-2 mr-4">
