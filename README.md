@@ -1,6 +1,11 @@
+
+
 # Introduction
 
 This is a simple account-keeper app for react beginner.
+
+## ScreenShot
+![Image text](https://raw.githubusercontent.com/RidicZhi/react-accounts-app/master/Screen%20Shot%202019-04-22%20at%204.05.55%20am.png)
 
 ## How To Run
 
