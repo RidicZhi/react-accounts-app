@@ -13,6 +13,14 @@ code {
     monospace;
 }
 
+h2 {
+  width: 32%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  border: 3px outset;
+  border-radius: 0.4rem;
+}
+
 .loading-message {
   padding-top: 5rem;
   text-align: center;
@@ -29,7 +37,11 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.btn-action{
+.btn-action {
   width:30%;
   min-width:25%;
+}
+
+.amount-box {
+  font-size: 1.25rem;
 }

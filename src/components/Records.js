@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Record from "./Record";
 import { getRecords } from "../utils/RecordsAPI";
 import NewRecordForm from "./NewRecordForm";
+import AmountBox from "./AmountBox";
 
 class Records extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class Records extends Component {
   onUpdateRecord(record, newRecord) {
     const { records } = this.state;
 
-    const newRecords = records.map((item) => {
+    const newRecords = records.map(item => {
       if (item.id !== record.id) {
         return item;
       }
@@ -63,11 +64,35 @@ class Records extends Component {
   onDeleteRecord(record) {
     const { records } = this.state;
 
-    const newRecords = records.filter((item) => item.id !== record.id);
+    const newRecords = records.filter(item => item.id !== record.id);
 
     this.setState({
       records: newRecords
-    })
+    });
+  }
+
+  getIncome() {
+    let incomeRecordArray = this.state.records.filter(record => {
+      return record.amount >= 0;
+    });
+
+    return incomeRecordArray.reduce((prev, curr) => {
+      return prev + curr.amount;
+    }, 0);
+  }
+
+  getOutcome() {
+    let incomeRecordArray = this.state.records.filter(record => {
+      return record.amount <= 0;
+    });
+
+    return incomeRecordArray.reduce((prev, curr) => {
+      return prev + curr.amount;
+    }, 0);
+  }
+
+  getBalance() {
+    return this.getIncome() + this.getOutcome();
   }
 
   render() {
@@ -109,7 +134,12 @@ class Records extends Component {
 
     return (
       <div className="mx-5 px-5">
-        <h2>Records</h2>
+        <h2 className="my-4 bg-primary text-white text-center">Accounts App</h2>
+        <div className="row mb-3">
+          <AmountBox title="Income" type="success" amount={this.getIncome()} />
+          <AmountBox title="Outcome" type="danger" amount={this.getOutcome()} />
+          <AmountBox title="Balance" type="info" amount={this.getBalance()} />
+        </div>
         <NewRecordForm onCreateRecord={this.onCreateRecord} />
         {recordsComponent}
       </div>
