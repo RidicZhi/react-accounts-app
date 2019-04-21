@@ -28,3 +28,8 @@ code {
 button:disabled {
   cursor: not-allowed;
 }
+
+.btn-action{
+  width:30%;
+  min-width:25%;
+}

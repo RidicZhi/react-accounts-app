@@ -58,8 +58,9 @@ class Records extends Component {
           <thead className="thead-dark">
             <tr>
               <th className="w-25">Date</th>
-              <th className="w-50">Title</th>
+              <th className="w-25">Title</th>
               <th className="w-25">Amount</th>
+              <th className="w-25">Actions</th>
             </tr>
           </thead>
           <tbody>
