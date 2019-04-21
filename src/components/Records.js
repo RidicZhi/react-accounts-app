@@ -14,6 +14,7 @@ class Records extends Component {
 
     this.onCreateRecord = this.onCreateRecord.bind(this);
     this.onUpdateRecord = this.onUpdateRecord.bind(this);
+    this.onDeleteRecord = this.onDeleteRecord.bind(this);
   }
 
   componentDidMount() {
@@ -43,9 +44,9 @@ class Records extends Component {
 
   onUpdateRecord(record, newRecord) {
     const { records } = this.state;
-    const recordIndex = records.indexOf(record);
-    const newRecords = records.map((item, index) => {
-      if (index !== recordIndex) {
+
+    const newRecords = records.map((item) => {
+      if (item.id !== record.id) {
         return item;
       }
       return {
@@ -57,6 +58,16 @@ class Records extends Component {
     this.setState({
       records: newRecords
     });
+  }
+
+  onDeleteRecord(record) {
+    const { records } = this.state;
+
+    const newRecords = records.filter((item) => item.id !== record.id);
+
+    this.setState({
+      records: newRecords
+    })
   }
 
   render() {
@@ -73,7 +84,7 @@ class Records extends Component {
       recordsComponent = <div className="loading-message">Loading...</div>;
     } else {
       recordsComponent = (
-        <table className="table table-bordered text-center">
+        <table className="table table-bordered text-center ">
           <thead className="thead-dark">
             <tr>
               <th className="w-25">Date</th>
@@ -88,6 +99,7 @@ class Records extends Component {
                 key={record.id}
                 record={record}
                 onUpdateRecord={this.onUpdateRecord}
+                onDeleteRecord={this.onDeleteRecord}
               />
             ))}
           </tbody>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { updateRecord } from "../utils/RecordsAPI";
+import { updateRecord, deleteRecord } from "../utils/RecordsAPI";
 
 export default class Record extends Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export default class Record extends Component {
 
     this.handleEditingToggle = this.handleEditingToggle.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleEditingToggle() {
@@ -36,13 +37,23 @@ export default class Record extends Component {
     this.handleEditingToggle();
   }
 
+  handleDelete(e) {
+    e.preventDefault();
+
+    deleteRecord(this.props.record.id)
+      .then(res => {
+        this.props.onDeleteRecord(res.data);
+      })
+      .catch(err => console.log(err.message));
+  }
+
   returnRecordRow() {
     const { date, title, amount } = this.props.record;
     return (
       <tr>
-        <td>{date}</td>
-        <td>{title}</td>
-        <td>{amount}</td>
+        <td className="align-middle">{date}</td>
+        <td className="align-middle">{title}</td>
+        <td className="align-middle">{amount}</td>
         <td>
           <button
             className="btn btn-info mr-3 btn-action"
@@ -50,7 +61,12 @@ export default class Record extends Component {
           >
             Edit
           </button>
-          <button className="btn btn-danger btn-action">Delete</button>
+          <button
+            className="btn btn-danger btn-action"
+            onClick={this.handleDelete}
+          >
+            Delete
+          </button>
         </td>
       </tr>
     );
