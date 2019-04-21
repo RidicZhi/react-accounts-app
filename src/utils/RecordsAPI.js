@@ -9,3 +9,6 @@ export const getRecords = () =>
 
 export const createRecord = (body) => 
   axios.post(`${api}/api/v1/records`, body);
+
+export const updateRecord = (id, body) => 
+  axios.put(`${api}/api/v1/records/${id}`, body);

@@ -4,6 +4,7 @@ import { createRecord } from "../utils/RecordsAPI";
 export default class NewRecordForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       date: "",
       title: "",
@@ -30,25 +31,24 @@ export default class NewRecordForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     const { date, title, amount } = this.state;
     const body = {
       date,
       title,
-      amount: Number.parseInt(amount, 0),
-    }
+      amount: Number.parseInt(amount, 0)
+    };
 
-    createRecord(body).then(
-      res => {
-        this.props.onCreateRecord(res.data)
+    createRecord(body)
+      .then(res => {
+        this.props.onCreateRecord(res.data);
         this.setState({
           date: "",
           title: "",
           amount: ""
-        })
-      }
-    ).catch(
-      err => console.log(err.message)
-    );
+        });
+      })
+      .catch(err => console.log(err.message));
   }
 
   render() {

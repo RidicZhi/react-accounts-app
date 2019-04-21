@@ -13,6 +13,7 @@ class Records extends Component {
     };
 
     this.onCreateRecord = this.onCreateRecord.bind(this);
+    this.onUpdateRecord = this.onUpdateRecord.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +35,24 @@ class Records extends Component {
   onCreateRecord(record) {
     const { records } = this.state;
     const newRecords = [...records, record];
+
+    this.setState({
+      records: newRecords
+    });
+  }
+
+  onUpdateRecord(record, newRecord) {
+    const { records } = this.state;
+    const recordIndex = records.indexOf(record);
+    const newRecords = records.map((item, index) => {
+      if (index !== recordIndex) {
+        return item;
+      }
+      return {
+        ...item,
+        ...newRecord
+      };
+    });
 
     this.setState({
       records: newRecords
@@ -65,7 +84,11 @@ class Records extends Component {
           </thead>
           <tbody>
             {records.map(record => (
-              <Record key={record.id} {...record} />
+              <Record
+                key={record.id}
+                record={record}
+                onUpdateRecord={this.onUpdateRecord}
+              />
             ))}
           </tbody>
         </table>
