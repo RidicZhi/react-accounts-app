@@ -13,7 +13,6 @@ This is a simple account-keeper app for react beginner.
 git clone https://github.com/RidicZhi/react-accounts-app.git
 cd react-accounts-app
 npm install
-npm run
 npm start
 ```
 
